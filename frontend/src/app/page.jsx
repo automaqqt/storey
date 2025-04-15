@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css';
 // MAX_CUSTOM_INPUT_LENGTH (same as before)
 const MAX_CUSTOM_INPUT_LENGTH = 150;
 // Define backend URL (use environment variable in real app)
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://old.einfachschach.de/api';
 
 // Development authentication credentials
 const DEV_USERNAME = "admin";
