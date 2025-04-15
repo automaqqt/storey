@@ -40,7 +40,7 @@ export default function sanitizeLlmJsonResponse(rawJsonString) {
     } catch (initialParseError) {
       // Initial parsing failed, definitely need sanitization.
       // Log the failure reason? Optional, might be noisy.
-      // console.log("Sanitize Info: Initial JSON parse failed, proceeding with full sanitization.");
+      console.log("Sanitize Info: Initial JSON parse failed, proceeding with full sanitization.",initialParseError);
     }
     // --- End Early Exit Check ---
   

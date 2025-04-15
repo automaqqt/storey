@@ -81,7 +81,7 @@ ${historyString}
         // Ollama's generate (non-stream) puts the JSON string in response.response
         parsedResponse = JSON.parse(response.response);
     } catch (parseError) {
-        console.error("Failed to parse LLM response JSON:", response.response);
+        console.error(`Failed to parse LLM response JSON: ${parseError}`, response.response);
         throw new Error(`LLM returned non-JSON response: ${response.response.substring(0, 100)}...`); // Provide snippet
     }
     console.log(parsedResponse)

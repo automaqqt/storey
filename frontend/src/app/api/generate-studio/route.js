@@ -89,7 +89,7 @@ export async function POST(request) {
 
     // Convert simple string history back to roles (assuming alternating assistant/user)
     // Note: This simple alternation might break if history format changes
-    clientHistoryStrings.forEach((text, index) => {
+    clientHistoryStrings.forEach((text) => {
         // Determine role based on the *source* of the text (from history type)
         // This requires the frontend to send history *items* not just strings, or infer based on prefix
         // --- Let's assume the prefixes we added are reliable ---
