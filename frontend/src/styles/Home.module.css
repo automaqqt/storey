@@ -1,0 +1,853 @@
+/* styles/Home.module.css */
+/* Base styles from original with fixes for scrolling issue */
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background-color: #e0dccc;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.08' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.bookContainer {
+  background-color: #fdfcf7;
+  color: #4a4a4a;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem 2.5rem;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid #dcd1c0;
+  transition: max-width 0.3s ease;
+}
+
+/* Expanded container with debug panel */
+.bookContainer.withDebugPanel {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+      "header header"
+      "content debug";
+  grid-gap: 1rem;
+  overflow: hidden;
+}
+
+/* Header area for title and debug toggle */
+.headerArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-area: header;
+  border-bottom: 1px solid #e0dccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: 'Lora', serif;
+  color: #6b5b4b;
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Debug toggle button */
+.debugToggleButton {
+  background-color: #6b8e23;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.debugToggleButton:hover {
+  background-color: #556b2f;
+}
+
+/* Debug Panel */
+.debugPanel {
+  grid-area: debug;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 100px);
+  margin-left: 1rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.debugPanel h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #444;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.debugPanel h4 {
+  margin: 1rem 0 0.5rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.debugSection {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #ddd;
+}
+
+.debugSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Model selectors */
+.modelSelectors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modelSelector {
+  display: flex;
+  flex-direction: column;
+}
+
+.modelSelector label {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.modelSelector select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Prompt toggle */
+.promptToggle {
+  margin-bottom: 1rem;
+}
+
+.promptToggle label {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+}
+
+.promptToggle input[type="checkbox"] {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  accent-color: #6b8e23;
+}
+
+/* Prompt editor */
+.promptEditor {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.promptEditor label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.systemPromptTextarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  resize: vertical;
+  background-color: #fdfdfd;
+}
+
+.systemPromptTextarea:focus {
+  outline: none;
+  border-color: #6b8e23;
+  box-shadow: 0 0 0 2px rgba(107, 142, 35, 0.2);
+}
+
+/* Raw response display */
+.rawResponseDisplay {
+  background-color: #333;
+  color: #f8f8f8;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* State display */
+.stateDisplay {
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summaryDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.summaryText {
+  background-color: #fffef9;
+  padding: 0.75rem;
+  border: 1px solid #e0dccc;
+  border-radius: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* --- FIX FOR STORY AREA SCROLLING --- */
+/* Story Area */
+.storyArea {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  padding-right: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1b6a8 #fdfcf7;
+  grid-area: content;
+  display: block;
+  height: 100%;
+  max-height: calc(80vh - 200px); /* Adjusted height to ensure space for interaction area */
+}
+
+/* Container for all content */
+.withDebugPanel .storyArea {
+  max-height: calc(90vh - 200px);
+}
+
+/* Grid areas for debug layout */
+.withDebugPanel .storyArea,
+.withDebugPanel .interactionArea {
+  grid-area: content;
+  overflow-y: auto;
+}
+
+/* Combined container for story and interaction */
+.contentContainer {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(90vh - 100px); /* Adjusted for header */
+  overflow: hidden;
+}
+
+.withDebugPanel .contentContainer {
+  border-right: 1px solid #e0dccc;
+  padding-right: 1rem;
+}
+
+/* Interaction area styling adjustment */
+.interactionArea {
+  border-top: 1px solid #e0dccc;
+  padding-top: 1.5rem;
+  margin-top: auto;
+  flex-shrink: 0;
+  overflow-y: visible;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #fdfcf7; /* Match container background */
+  z-index: 10; /* Ensure it stays on top */
+}
+
+/* Webkit scrollbar styling */
+.storyArea::-webkit-scrollbar {
+  width: 8px;
+}
+.storyArea::-webkit-scrollbar-track {
+  background: #fdfcf7;
+  border-radius: 4px;
+}
+.storyArea::-webkit-scrollbar-thumb {
+  background-color: #c1b6a8;
+  border-radius: 4px;
+  border: 2px solid #fdfcf7;
+}
+
+.storyText {
+  margin-bottom: 1em;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.storyText.story {
+  font-family: 'Lora', serif;
+  color: #3a3a3a;
+  text-indent: 1.5em;
+}
+.storyText.story:first-of-type {
+  text-indent: 0;
+}
+
+.storyText.choice,
+.storyText.userInput {
+  font-family: 'Nunito', sans-serif;
+  font-style: italic;
+  color: #8a7967;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+  border-left: 3px solid #dcd1c0;
+  padding-left: 1em;
+  text-indent: 0;
+}
+.storyText.userInput {
+  color: #a26f5a;
+  font-weight: 600;
+}
+
+.storyText.info {
+  font-family: 'Nunito', sans-serif;
+  font-style: italic;
+  color: #999;
+  font-size: 0.9em;
+  text-align: center;
+  margin: 1.5em 0;
+  text-indent: 0;
+}
+
+.choicesArea {
+  margin-bottom: 0;
+  padding-bottom: 1rem;
+}
+
+.interactionPrompt {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  color: #6b5b4b;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.choiceButtonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.choiceButton {
+  background-color: #9f8d7a;
+  border: none;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  flex-grow: 1;
+  min-width: 150px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.choiceButton:hover:not(:disabled) {
+  background-color: #8a7967;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+.choiceButton:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.choiceButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.customInputContainer {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+  background-color: rgba(224, 220, 204, 0.2);
+  border-radius: 6px;
+  border: 1px solid #e0dccc;
+  animation: fadeIn 0.3s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.customInputLabel {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #6b5b4b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.customInputTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dcd1c0;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  resize: vertical;
+  min-height: 60px;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.customInputTextarea:focus {
+  outline: none;
+  border-color: #a26f5a;
+  box-shadow: 0 0 0 3px rgba(162, 111, 90, 0.15);
+}
+.customInputTextarea:disabled {
+  background-color: #eee;
+}
+
+.customInputFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.customInputCounter {
+  font-size: 0.85em;
+  color: #777;
+}
+
+.customInputButton {
+  background-color: #a26f5a;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.customInputButton:hover:not(:disabled) {
+  background-color: #8c5d4a;
+  transform: translateY(-2px);
+}
+.customInputButton:active:not(:disabled) {
+  transform: translateY(0px);
+}
+.customInputButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Status Messages */
+.loading, .error, .endMessage {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.loading {
+  color: #8a7967;
+  font-style: italic;
+}
+
+.error {
+  color: #b54b4b;
+  font-weight: 600;
+  background-color: rgba(181, 75, 75, 0.1);
+  border: 1px solid rgba(181, 75, 75, 0.3);
+}
+
+.endMessage {
+  color: #6b5b4b;
+  font-style: italic;
+  font-family: 'Lora', serif;
+}
+
+.errorContainer {
+  border: 1px solid rgba(181, 75, 75, 0.3);
+  background-color: rgba(181, 75, 75, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.retryButton {
+  background-color: #778899;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.retryButton:hover:not(:disabled) {
+  background-color: #5a6876;
+  transform: translateY(-1px);
+}
+
+.retryButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.toggleCustomContainer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #e0dccc;
+}
+
+.toggleCustomInputButton {
+  background-color: transparent;
+  border: 1px solid #9f8d7a;
+  color: #8a7967;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.toggleCustomInputButton:hover:not(:disabled) {
+  background-color: rgba(159, 141, 122, 0.1);
+  color: #736555;
+}
+
+.toggleCustomInputButton:disabled {
+  border-color: #ccc;
+  color: #aaa;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.startContainer {
+  text-align: center;
+  padding: 2rem 0;
+  grid-area: content;
+}
+.startTitle {
+  font-family: 'Lora', serif;
+  color: #6b5b4b;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+.startButton {
+  display: block;
+  width: 80%;
+  margin: 1rem auto;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #8a7967;
+  color: #fdfcf7;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-align: left;
+}
+.startButton:hover:not(:disabled) {
+  background-color: #736555;
+  transform: translateY(-2px);
+}
+.startButton:active:not(:disabled) {
+  transform: translateY(0px);
+}
+.startButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.taleListContainer {
+  margin-top: 1rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #c1b6a8 #f4f1eb;
+}
+.taleListContainer::-webkit-scrollbar { width: 8px; }
+.taleListContainer::-webkit-scrollbar-track { background: #f4f1eb; border-radius: 4px; }
+.taleListContainer::-webkit-scrollbar-thumb { background-color: #c1b6a8; border-radius: 4px; border: 2px solid #f4f1eb; }
+
+/* Responsive styles for debug panel */
+@media (max-width: 1100px) {
+  .bookContainer.withDebugPanel {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr;
+      grid-template-areas: 
+          "header"
+          "debug"
+          "content";
+  }
+  
+  .debugPanel {
+      margin-left: 0;
+      margin-bottom: 1rem;
+      max-height: 300px;
+  }
+}
+
+/* Existing responsive styles */
+@media (max-width: 600px) {
+  .pageContainer {
+      padding: 1rem 0.5rem;
+  }
+  .bookContainer {
+      padding: 1.5rem 1rem;
+      max-height: 95vh;
+  }
+  .title {
+      font-size: 1.6rem;
+  }
+  .storyText {
+      font-size: 1rem;
+  }
+  .choiceButtonsContainer {
+      flex-direction: column;
+      gap: 8px;
+  }
+  .choiceButton {
+      width: 100%;
+      min-width: unset;
+  }
+  .customInputFooter {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+  }
+  .customInputCounter {
+      text-align: right;
+  }
+  .customInputButton {
+      width: 100%;
+  }
+  
+  .debugPanel {
+      max-height: 200px;
+  }
+  
+  .modelSelector {
+      margin-bottom: 0.5rem;
+  }
+}
+
+/* Authentication styles */
+.authContainer {
+  background-color: #fdfcf7;
+  color: #4a4a4a;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 3px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #dcd1c0;
+}
+
+.authTitle {
+  font-family: 'Lora', serif;
+  color: #6b5b4b;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.authForm {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #dcd1c0;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #8a7967;
+  box-shadow: 0 0 0 2px rgba(138, 121, 103, 0.2);
+}
+
+.authButton {
+  background-color: #8a7967;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.authButton:hover {
+  background-color: #736555;
+}
+
+.authError {
+  background-color: rgba(181, 75, 75, 0.1);
+  border: 1px solid rgba(181, 75, 75, 0.3);
+  color: #b54b4b;
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .authContainer {
+      padding: 1.5rem;
+  }
+}
+
+/* Temperature slider styles */
+.temperatureControl {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sliderContainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #007bff, #ff4136);
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6b8e23;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6b8e23;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.sliderLabels span:nth-child(2) {
+  font-weight: bold;
+  color: #444;
+  font-size: 0.85rem;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  padding: 1px 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}

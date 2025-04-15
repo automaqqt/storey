@@ -1,0 +1,7 @@
+
+backend/.env
+/backend/chroma_db
+/backend/app/utils/__pycache__
+/backend/app/services/__pycache__
+/backend/app/models/__pycache__
+*.pyc
